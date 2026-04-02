@@ -29,7 +29,7 @@ export const CAMELOT = {
 export const AAVE_V3 = {
   pool: "0x794a61358D6845594F94dc1DB02A252b5b4814aD" as `0x${string}`,
   poolDataProvider: "0x69FA688f1Dc47d4B5d8029D5a35FB7a548310654" as `0x${string}`,
-  oracle: "0xb56c2F0B653B2e0b10C9b928C8580Ac5Df02C7C0" as `0x${string}`,
+  oracle: "0xb56c2F0B653B2e0b10C9b928C8580Ac5Df02C7C7" as `0x${string}`,
 };
 
 // ─── ERC-8004 Identity Registry ───

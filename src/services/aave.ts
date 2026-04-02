@@ -28,10 +28,13 @@ function rayToPercent(ray: bigint): number {
 }
 
 function rayToApy(ray: bigint): number {
-  // Convert per-second rate to APY: ((1 + rate/SECONDS)^SECONDS - 1) * 100
-  // Simplified: rate * SECONDS / RAY * 100 ≈ APR, close enough for display
-  const apr = Number(ray) / 1e27 * SECONDS_PER_YEAR * 100;
-  return Math.round(apr * 100) / 100;
+  // Aave liquidityRate / variableBorrowRate are already annualised rates in RAY.
+  // APY ≈ (1 + APR/n)^n − 1 where n = compounding periods.
+  // For simplicity we compound per-second (Aave accrues every second).
+  const apr = Number(ray) / 1e27; // annual rate as decimal
+  // Compound per-second for true APY
+  const apy = Math.pow(1 + apr / SECONDS_PER_YEAR, SECONDS_PER_YEAR) - 1;
+  return Math.round(apy * 10000) / 100; // percentage with 2 decimals
 }
 
 export interface AaveAccountSummary {
