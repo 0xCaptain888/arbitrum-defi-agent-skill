@@ -170,27 +170,12 @@ PRIVATE_KEY=0x... npx tsx scripts/register-agent.ts https://raw.githubuserconten
 
 The registration mints an Agent NFT on the Identity Registry and returns your Agent ID.
 
-## Live Public Endpoint
+## Live Demo Site
 
-The agent is deployed and accessible at:
 
-```
-https://k4h7wl2q.mule.page/
-```
+**[https://0xcaptain888.github.io/arbitrum-defi-agent-skill/](https://0xcaptain888.github.io/arbitrum-defi-agent-skill/)**
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/health` | GET | Health check |
-| `/agent.json` | GET | Agent Card (A2A discovery) |
-| `/tools` | GET | List all 14 tools |
-| `/execute` | POST | Run any tool |
-
-Try it:
-```bash
-curl https://k4h7wl2q.mule.page/health
-curl -X POST https://k4h7wl2q.mule.page/execute \
-  -H "Content-Type: application/json" \
-  -d '{"tool": "get_best_swap_quote", "params": {"tokenIn": "WETH", "tokenOut": "USDC", "amountIn": "1"}}'
+Interactive documentation with live demo output, all 14 tools, architecture diagram, and API examples.
 ```
 
 ## Architecture

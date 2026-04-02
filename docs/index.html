@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arbitrum DeFi Strategist Agent</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--accent:#58a6ff;--green:#3fb950;--orange:#d29922;--red:#f85149;--purple:#bc8cff}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.container{max-width:960px;margin:0 auto;padding:0 20px}
+header{padding:40px 0 30px;text-align:center;border-bottom:1px solid var(--border)}
+header h1{font-size:2em;margin-bottom:8px}
+header p{color:var(--muted);font-size:1.1em}
+.badges{margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:.85em;font-weight:600}
+.badge.green{background:#238636;color:#fff}
+.badge.blue{background:#1f6feb;color:#fff}
+.badge.purple{background:#8957e5;color:#fff}
+.badge.orange{background:#9e6a03;color:#fff}
+section{padding:32px 0;border-bottom:1px solid var(--border)}
+section:last-child{border-bottom:none}
+h2{font-size:1.5em;margin-bottom:16px;color:var(--text)}
+h3{font-size:1.15em;margin-bottom:8px;color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px}
+.card h3{margin-bottom:6px}
+.card p{color:var(--muted);font-size:.9em}
+table{width:100%;border-collapse:collapse;margin-top:8px}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--border);font-size:.9em}
+th{color:var(--muted);font-weight:600;font-size:.8em;text-transform:uppercase;letter-spacing:.5px}
+td code{background:#1c2128;padding:2px 6px;border-radius:4px;font-size:.85em}
+pre{background:#1c2128;border:1px solid var(--border);border-radius:8px;padding:16px;overflow-x:auto;font-size:.85em;line-height:1.5;margin:12px 0;color:#c9d1d9}
+.demo-output{background:#0d1117;border:1px solid var(--green);border-radius:8px;padding:20px;font-family:'Courier New',monospace;font-size:.82em;white-space:pre-wrap;line-height:1.45;color:var(--green);max-height:500px;overflow-y:auto}
+.stat{text-align:center;padding:16px}
+.stat .num{font-size:2.2em;font-weight:700;color:var(--accent)}
+.stat .label{color:var(--muted);font-size:.85em;margin-top:4px}
+.reg-info{background:var(--card);border:1px solid var(--green);border-radius:8px;padding:20px;margin:16px 0}
+.reg-info code{background:#1c2128;padding:2px 6px;border-radius:4px}
+.arch{font-family:'Courier New',monospace;font-size:.8em;line-height:1.4;background:#1c2128;border:1px solid var(--border);border-radius:8px;padding:20px;overflow-x:auto}
+footer{padding:24px 0;text-align:center;color:var(--muted);font-size:.85em}
+@media(max-width:600px){header h1{font-size:1.5em}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Arbitrum DeFi Strategist Agent</h1>
+  <p>AI agent for multi-protocol DeFi analysis and execution on Arbitrum One</p>
+  <div class="badges">
+    <span class="badge green">ERC-8004 Registered</span>
+    <span class="badge blue">14 Tools</span>
+    <span class="badge purple">Agent ID: 165</span>
+    <span class="badge orange">A2A Compatible</span>
+  </div>
+</header>
+
+<section>
+  <div class="grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="stat"><div class="num">14</div><div class="label">Agent Tools</div></div>
+    <div class="stat"><div class="num">5</div><div class="label">Protocols</div></div>
+    <div class="stat"><div class="num">100</div><div class="label">GMX Markets</div></div>
+    <div class="stat"><div class="num">165</div><div class="label">Agent ID</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Protocol Integrations</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>GMX V2 Perpetuals</h3>
+      <p>Market listing, open interest analysis, long/short imbalance detection, funding rate signals, position monitoring, borrowing factor tracking via DataStore direct reads.</p>
+    </div>
+    <div class="card">
+      <h3>Aave V3 Lending</h3>
+      <p>Health factor monitoring, liquidation risk assessment (5-level: SAFE to LIQUIDATABLE), per-asset position breakdown, reserve APY comparison with proper RAY math.</p>
+    </div>
+    <div class="card">
+      <h3>Uniswap V3 DEX</h3>
+      <p>Multi-fee-tier quoting (500/3000/10000 bps), swap execution with slippage protection via SwapRouter02.</p>
+    </div>
+    <div class="card">
+      <h3>Camelot DEX</h3>
+      <p>Arbitrum-native DEX swap quoting for cross-DEX price comparison. Algebra-style concentrated liquidity.</p>
+    </div>
+    <div class="card">
+      <h3>Strategy Engine</h3>
+      <p>Cross-protocol yield optimization, portfolio risk assessment (wallet + Aave HF + GMX leverage), personalized DeFi recommendations.</p>
+    </div>
+    <div class="card">
+      <h3>ERC-8004 Identity</h3>
+      <p>On-chain agent identity registration on Arbitrum Identity Registry. Mints Agent NFT with metadata URI.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>All 14 Tools</h2>
+  <table>
+    <thead><tr><th>Tool</th><th>Description</th><th>Category</th></tr></thead>
+    <tbody>
+      <tr><td><code>get_portfolio</code></td><td>Wallet balance overview (ETH + all ERC-20)</td><td>Wallet</td></tr>
+      <tr><td><code>get_best_swap_quote</code></td><td>Multi-DEX quote comparison (Uniswap V3 + Camelot)</td><td>DEX</td></tr>
+      <tr><td><code>execute_swap</code></td><td>Execute swap with approval handling</td><td>DEX</td></tr>
+      <tr><td><code>gmx_list_markets</code></td><td>All GMX V2 perpetual/spot markets</td><td>GMX</td></tr>
+      <tr><td><code>gmx_analyze_market</code></td><td>Deep market analysis: OI, funding signals, borrowing</td><td>GMX</td></tr>
+      <tr><td><code>gmx_get_positions</code></td><td>Account perpetual positions</td><td>GMX</td></tr>
+      <tr><td><code>aave_account_health</code></td><td>Health factor + risk assessment</td><td>Aave</td></tr>
+      <tr><td><code>aave_detailed_positions</code></td><td>Per-asset supply/borrow breakdown</td><td>Aave</td></tr>
+      <tr><td><code>aave_reserve_overview</code></td><td>All reserve APYs and utilization</td><td>Aave</td></tr>
+      <tr><td><code>find_yield_opportunities</code></td><td>Cross-protocol yield scanner</td><td>Strategy</td></tr>
+      <tr><td><code>analyze_portfolio_risk</code></td><td>Multi-protocol risk assessment</td><td>Strategy</td></tr>
+      <tr><td><code>get_strategy_recommendation</code></td><td>Personalized DeFi strategy</td><td>Strategy</td></tr>
+      <tr><td><code>register_agent</code></td><td>ERC-8004 identity registration</td><td>Registry</td></tr>
+      <tr><td><code>get_agent_info</code></td><td>Query agent registry</td><td>Registry</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Live Demo Output</h2>
+  <p style="color:var(--muted);margin-bottom:12px">Real data fetched live from Arbitrum One mainnet:</p>
+  <div class="demo-output">══════════════════════════════════════════════════════
+  1. WALLET PORTFOLIO (GMX Treasury)
+══════════════════════════════════════════════════════
+Address: 0x489ee077994B6658eAfA855C308275EAd8097C4A
+  WETH: 6.575 &middot; USDC: 21,772.22 &middot; USDT: 2,716.62
+  DAI: 5,183.41 &middot; WBTC: 6.742
+
+══════════════════════════════════════════════════════
+  2. MULTI-DEX SWAP QUOTE (1 WETH &rarr; USDC)
+══════════════════════════════════════════════════════
+  Uniswap V3 (500bps):  2,054.99 USDC  &larr; Best
+  Camelot:               2,053.41 USDC
+  Uniswap V3 (3000bps): 2,052.78 USDC
+  Uniswap V3 (10000):   2,026.77 USDC
+  Price spread: 1.39%
+
+══════════════════════════════════════════════════════
+  3. GMX V2 PERPETUAL MARKETS (100 total)
+══════════════════════════════════════════════════════
+  BTC/USD [WBTC-USDC] &middot; WETH/USD [WETH-USDC]
+  SOL/USD [SOL-USDC]  &middot; LINK/USD [LINK-USDC]
+  Deep Analysis &mdash; OI imbalance + funding signals
+
+══════════════════════════════════════════════════════
+  4. AAVE V3 RESERVES (Top by Supply APY)
+══════════════════════════════════════════════════════
+  DAI    Supply: 1.92%  Borrow: 3.83%  Util: 67.6%
+  USDC   Supply: 1.81%  Borrow: 6.52%  Util: 56.8%
+  WETH   Supply: 1.66%  Borrow: 2.32%  Util: 84.4%
+  USDT   Supply: 1.53%  Borrow: 2.78%  Util: 61.6%
+
+══════════════════════════════════════════════════════
+  5. CROSS-PROTOCOL YIELD OPPORTUNITIES
+══════════════════════════════════════════════════════
+  [LOW] Aave V3 &mdash; DAI:  1.92% APY
+  [LOW] Aave V3 &mdash; USDC: 1.81% APY
+  [LOW] Aave V3 &mdash; WETH: 1.66% APY
+
+══════════════════════════════════════════════════════
+  6. PORTFOLIO RISK ASSESSMENT
+══════════════════════════════════════════════════════
+  Overall Risk: LOW &middot; Total Value: ~$21,772
+  &quot;No significant risk factors detected.&quot;</div>
+</section>
+
+<section>
+  <h2>ERC-8004 Registration</h2>
+  <div class="reg-info">
+    <p><strong>Agent ID:</strong> <code>165</code></p>
+    <p><strong>Registry:</strong> <a href="https://sepolia.arbiscan.io/address/0x8004A818BFB912233c491871b3d84c89A494BD9e">0x8004A818BFB912233c491871b3d84c89A494BD9e</a> (Arbitrum Sepolia)</p>
+    <p><strong>Registration TX:</strong> <a href="https://sepolia.arbiscan.io/tx/0xcd92b197c6ce647552bb8debd19a9a2d47d5679b8d0615bc42505dae87d85e86">0xcd92b197...d85e86</a></p>
+    <p><strong>Owner:</strong> <code>0xd2D120eB7cEd38551cCeFb48021067d41D6542d3</code></p>
+  </div>
+</section>
+
+<section>
+  <h2>API Examples</h2>
+  <h3>Multi-DEX Swap Quote</h3>
+  <pre>curl -X POST /execute \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "get_best_swap_quote", "params": {"tokenIn": "WETH", "tokenOut": "USDC", "amountIn": "1"}}'</pre>
+  <h3>GMX Market Analysis</h3>
+  <pre>curl -X POST /execute \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "gmx_analyze_market", "params": {"marketToken": "0x70d95587d40A2caf56bd97485aB3Eec10Bee6336"}}'</pre>
+  <h3>Portfolio Risk Assessment</h3>
+  <pre>curl -X POST /execute \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "analyze_portfolio_risk", "params": {"address": "0x489ee077994B6658eAfA855C308275EAd8097C4A"}}'</pre>
+</section>
+
+<section>
+  <h2>Architecture</h2>
+  <pre class="arch">┌──────────────────────────────────────────────────┐
+│             Agent HTTP Endpoint                   │
+│          (Express.js &mdash; A2A compatible)           │
+├──────────────────────────────────────────────────┤
+│               Tool Layer (14 tools)               │
+│        JSON Schema parameter definitions          │
+├───────────┬──────────┬──────────┬────────────────┤
+│  Wallet   │   DEX    │  GMX V2  │   Aave V3      │
+│  Service  │ Service  │ Service  │   Service      │
+│           │(Uni+Cam) │          │                │
+├───────────┴──────────┴──────────┴────────────────┤
+│             Strategy Engine                       │
+│  Yield optimization &middot; Risk assessment            │
+│  Cross-protocol analysis &middot; Recommendations       │
+├──────────────────────────────────────────────────┤
+│             viem (Arbitrum One)                    │
+└──────────────────────────────────────────────────┘</pre>
+</section>
+
+<section>
+  <h2>Quick Start</h2>
+  <pre>git clone https://github.com/0xCaptain888/arbitrum-defi-agent-skill.git
+cd arbitrum-defi-agent-skill
+npm install
+
+# Run demo (no private key needed)
+npx tsx scripts/demo.ts
+
+# Start agent server
+npm run dev
+# Server at http://localhost:3000
+
+# Or run compiled version directly
+node dist/index.js</pre>
+</section>
+
+<footer>
+  <p>
+    <a href="https://github.com/0xCaptain888/arbitrum-defi-agent-skill">GitHub Repository</a> &middot;
+    <a href="https://sepolia.arbiscan.io/tx/0xcd92b197c6ce647552bb8debd19a9a2d47d5679b8d0615bc42505dae87d85e86">Registration TX</a> &middot;
+    Built for the <a href="https://www.notion.so/arbitrumfoundation/ArbiLink-Challenge-Agentic-Bounty-32c90457c3268012b69efd3a5ee7ea46">ArbiLink Agentic Bounty</a>
+  </p>
+  <p style="margin-top:8px">MIT License &middot; Powered by Arbitrum One</p>
+</footer>
+
+</div>
+</body>
+</html>
