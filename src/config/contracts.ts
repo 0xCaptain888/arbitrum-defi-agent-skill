@@ -22,7 +22,7 @@ export const GMX_V2 = {
 export const CAMELOT = {
   router: "0xc873fEcbd354f5A56E00E710B90EF4201db2448d" as `0x${string}`,
   factory: "0x1a3c9B1d2F0529D97f2afC5136Cc23e58f1FD35B" as `0x${string}`,
-  quoterV2: "0x0524E833cCD057e4d7A296e3aaAb9f7675964Ce1" as `0x${string}`,
+  quoterV2: "0x0Fc73040b26E9bC8514fA028D998E73A254Fa76E" as `0x${string}`,
 };
 
 // ─── Aave V3 (Lending on Arbitrum) ───

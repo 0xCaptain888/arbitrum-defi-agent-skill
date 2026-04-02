@@ -11,7 +11,7 @@
 import { type Address, formatUnits, encodePacked, keccak256 } from "viem";
 import { getPublicClient } from "../utils/client";
 import { arbitrumOne } from "../config/chains";
-import { GMX_V2, GMX_READER_ABI, GMX_DATASTORE_ABI } from "../config/contracts";
+import { GMX_V2, GMX_READER_ABI, GMX_DATASTORE_ABI, ERC20_ABI } from "../config/contracts";
 import { TOKENS } from "../config/tokens";
 
 // ── GMX V2 DataStore key helpers ──
@@ -64,18 +64,45 @@ export interface GmxMarket {
   label: string;
 }
 
-// Resolve token symbol from known tokens
-function tokenLabel(addr: Address): string {
+// Resolve token symbol from known tokens, with on-chain fallback cache
+const symbolCache: Record<string, string> = {};
+
+function tokenLabelSync(addr: Address): string {
+  const lower = addr.toLowerCase();
   for (const t of Object.values(TOKENS)) {
-    if (t.address.toLowerCase() === addr.toLowerCase()) return t.symbol;
+    if (t.address.toLowerCase() === lower) return t.symbol;
   }
+  if (symbolCache[lower]) return symbolCache[lower];
   return addr.slice(0, 8) + "...";
 }
 
+async function resolveSymbol(addr: Address, client: any): Promise<string> {
+  const lower = addr.toLowerCase();
+  for (const t of Object.values(TOKENS)) {
+    if (t.address.toLowerCase() === lower) return t.symbol;
+  }
+  if (symbolCache[lower]) return symbolCache[lower];
+  try {
+    const sym = await client.readContract({ address: addr, abi: ERC20_ABI, functionName: "symbol" });
+    symbolCache[lower] = sym as string;
+    return sym as string;
+  } catch {
+    return addr.slice(0, 8) + "...";
+  }
+}
+
+// Cache markets to avoid redundant RPC calls
+let marketsCache: GmxMarket[] | null = null;
+let marketsCacheTime = 0;
+const CACHE_TTL = 60_000; // 60 seconds
+
 /**
- * Fetch all GMX V2 markets on Arbitrum
+ * Fetch all GMX V2 markets on Arbitrum (cached)
  */
 export async function getMarkets(): Promise<GmxMarket[]> {
+  if (marketsCache && Date.now() - marketsCacheTime < CACHE_TTL) {
+    return marketsCache;
+  }
   const client = getPublicClient(arbitrumOne);
   try {
     const raw = await client.readContract({
@@ -85,13 +112,34 @@ export async function getMarkets(): Promise<GmxMarket[]> {
       args: [GMX_V2.dataStore, 0n, 100n],
     });
 
-    return (raw as any[]).map((m: any) => ({
+    // Collect unique token addresses for batch symbol resolution
+    const uniqueAddrs = new Set<string>();
+    for (const m of raw as any[]) {
+      uniqueAddrs.add(m.indexToken.toLowerCase());
+      uniqueAddrs.add(m.longToken.toLowerCase());
+      uniqueAddrs.add(m.shortToken.toLowerCase());
+    }
+    // Resolve unknown symbols in parallel
+    const unknowns = [...uniqueAddrs].filter(a => {
+      for (const t of Object.values(TOKENS)) {
+        if (t.address.toLowerCase() === a) return false;
+      }
+      return !symbolCache[a];
+    });
+    await Promise.all(
+      unknowns.map(a => resolveSymbol(a as Address, client))
+    );
+
+    const result = (raw as any[]).map((m: any) => ({
       marketToken: m.marketToken,
       indexToken: m.indexToken,
       longToken: m.longToken,
       shortToken: m.shortToken,
-      label: `${tokenLabel(m.indexToken)}/USD [${tokenLabel(m.longToken)}-${tokenLabel(m.shortToken)}]`,
+      label: `${tokenLabelSync(m.indexToken)}/USD [${tokenLabelSync(m.longToken)}-${tokenLabelSync(m.shortToken)}]`,
     }));
+    marketsCache = result;
+    marketsCacheTime = Date.now();
+    return result;
   } catch (err: any) {
     throw new Error(`Failed to fetch GMX markets: ${err.message}`);
   }

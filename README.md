@@ -83,6 +83,60 @@ npm run dev
 npx tsx scripts/demo.ts
 ```
 
+<details>
+<summary><b>Demo Output (live data from Arbitrum One)</b></summary>
+
+```
+════════════════════════════════════════════════════════════
+  1. WALLET PORTFOLIO (GMX Treasury)
+════════════════════════════════════════════════════════════
+Address: 0x489ee077994B6658eAfA855C308275EAd8097C4A
+  WETH: 6.575 · USDC: 21,772.22 · USDT: 2,716.62
+  DAI: 5,183.41 · WBTC: 6.742
+
+════════════════════════════════════════════════════════════
+  2. MULTI-DEX SWAP QUOTE (1 WETH → USDC)
+════════════════════════════════════════════════════════════
+  Uniswap V3 (500bps): 2,054.99 USDC  ← Best
+  Camelot:              2,053.41 USDC
+  Uniswap V3 (3000):   2,052.78 USDC
+  Uniswap V3 (10000):  2,026.77 USDC
+  Price spread: 1.39% → "Uniswap V3 is clearly the best venue."
+
+════════════════════════════════════════════════════════════
+  3. GMX V2 MARKETS (100 markets, top 5 shown)
+════════════════════════════════════════════════════════════
+  BTC/USD [WBTC-USDC]   · WETH/USD [WETH-USDC]
+  SOL/USD [SOL-USDC]    · LINK/USD [LINK-USDC]  · ARB/USD [ARB-USDC]
+
+  Deep Analysis — BTC/USD:
+    Long OI: $X.XXM  Short OI: $X.XXM
+    Imbalance signal + borrowing factor tracking
+
+════════════════════════════════════════════════════════════
+  4. AAVE V3 RESERVE OVERVIEW (Top 5 by Supply APY)
+════════════════════════════════════════════════════════════
+  DAI    Supply: 1.92%  Borrow: 3.83%  Utilization: 67.6%
+  USDC   Supply: 1.81%  Borrow: 6.52%  Utilization: 56.8%
+  WETH   Supply: 1.66%  Borrow: 2.32%  Utilization: 84.4%
+  USDT   Supply: 1.53%  Borrow: 2.78%  Utilization: 61.6%
+
+════════════════════════════════════════════════════════════
+  5. CROSS-PROTOCOL YIELD OPPORTUNITIES
+════════════════════════════════════════════════════════════
+  [LOW]  Aave V3 — DAI:  1.92% APY (Utilization 67.6%)
+  [LOW]  Aave V3 — USDC: 1.81% APY (Utilization 56.8%)
+  [LOW]  Aave V3 — WETH: 1.66% APY (Utilization 84.4%)
+
+════════════════════════════════════════════════════════════
+  6. PORTFOLIO RISK ASSESSMENT
+════════════════════════════════════════════════════════════
+  Overall Risk: LOW · Total Value: ~$21,772
+  "No significant risk factors detected."
+```
+
+</details>
+
 ### Example API Call
 
 ```bash
@@ -104,12 +158,40 @@ curl -X POST http://localhost:3000/execute \
 
 ## ERC-8004 Agent Registration
 
+**Agent ID: 165** — Registered on Arbitrum Sepolia Identity Registry.
+
+- **Registry**: [`0x8004A818BFB912233c491871b3d84c89A494BD9e`](https://sepolia.arbiscan.io/address/0x8004A818BFB912233c491871b3d84c89A494BD9e)
+- **TX**: [`0xcd92b197...`](https://sepolia.arbiscan.io/tx/0xcd92b197c6ce647552bb8debd19a9a2d47d5679b8d0615bc42505dae87d85e86)
+
 ```bash
-# Register on Arbitrum Sepolia
+# Register your own agent on Arbitrum Sepolia
 PRIVATE_KEY=0x... npx tsx scripts/register-agent.ts https://raw.githubusercontent.com/0xCaptain888/arbitrum-defi-agent-skill/main/agent-registration.json
 ```
 
-The registration mints an Agent NFT on the [Identity Registry](https://sepolia.arbiscan.io/address/0x8004A818BFB912233c491871b3d84c89A494BD9e) and returns your Agent ID.
+The registration mints an Agent NFT on the Identity Registry and returns your Agent ID.
+
+## Live Public Endpoint
+
+The agent is deployed and accessible at:
+
+```
+https://k4h7wl2q.mule.page/
+```
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/health` | GET | Health check |
+| `/agent.json` | GET | Agent Card (A2A discovery) |
+| `/tools` | GET | List all 14 tools |
+| `/execute` | POST | Run any tool |
+
+Try it:
+```bash
+curl https://k4h7wl2q.mule.page/health
+curl -X POST https://k4h7wl2q.mule.page/execute \
+  -H "Content-Type: application/json" \
+  -d '{"tool": "get_best_swap_quote", "params": {"tokenIn": "WETH", "tokenOut": "USDC", "amountIn": "1"}}'
+```
 
 ## Architecture
 
