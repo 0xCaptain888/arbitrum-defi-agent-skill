@@ -6,7 +6,7 @@ import { createServer } from "./agent/endpoint";
 const PORT = parseInt(process.env.PORT || "3000", 10);
 const app = createServer();
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`
 ╔══════════════════════════════════════════════════════════╗
 ║       Arbitrum DeFi Strategist Agent v1.0.0              ║
