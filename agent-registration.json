@@ -1,0 +1,38 @@
+{
+  "name": "Arbitrum DeFi Strategist",
+  "description": "AI agent for multi-protocol DeFi analysis and execution on Arbitrum. Deep integration with GMX V2 perpetuals, Aave V3 lending, and multi-DEX aggregation (Uniswap V3 + Camelot). Provides cross-protocol yield optimization, portfolio risk assessment, and actionable strategy recommendations.",
+  "version": "1.0.0",
+  "capabilities": [
+    "portfolio_analysis",
+    "multi_dex_swap_aggregation",
+    "gmx_v2_perpetuals_analysis",
+    "aave_v3_lending_monitoring",
+    "cross_protocol_yield_optimization",
+    "portfolio_risk_assessment",
+    "strategy_recommendation",
+    "erc8004_identity_registration"
+  ],
+  "protocols": {
+    "gmx_v2": {
+      "description": "Perpetual futures: market data, OI analysis, funding rate signals, position monitoring",
+      "chain": "Arbitrum One"
+    },
+    "aave_v3": {
+      "description": "Lending/borrowing: health factor monitoring, APY tracking, liquidation risk assessment",
+      "chain": "Arbitrum One"
+    },
+    "uniswap_v3": {
+      "description": "DEX: swap execution, multi-fee-tier quoting",
+      "chain": "Arbitrum One"
+    },
+    "camelot": {
+      "description": "Arbitrum-native DEX: swap quoting for price comparison",
+      "chain": "Arbitrum One"
+    }
+  },
+  "tools_count": 14,
+  "chain": "Arbitrum One",
+  "trust_models": ["erc8004_identity"],
+  "source": "https://github.com/0xCaptain888/arbitrum-defi-agent-skill",
+  "contact": "engineering@example.com"
+}
